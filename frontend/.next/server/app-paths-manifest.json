@@ -1,9 +1,0 @@
-{
-  "/dashboard/page": "app/dashboard/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
-  "/questions/[id]/[userId]/page": "app/questions/[id]/[userId]/page.js",
-  "/questions/[id]/page": "app/questions/[id]/page.js",
-  "/quizadd/page": "app/quizadd/page.js",
-  "/scorecard/page": "app/scorecard/page.js"
-}

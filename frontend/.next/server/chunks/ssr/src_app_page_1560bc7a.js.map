@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/tanmaytatyasosamjanawar/Desktop/Projects/Quiz-App/quiz-app/frontend/src/app/page.js"],"sourcesContent":["\"use client\";\n\nexport default function Page() {\n  return <h1>Hello from page</h1>;\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEe,SAAS;IACtB,qBAAO,8OAAC;kBAAG;;;;;;AACb","debugId":null}}]
-}
