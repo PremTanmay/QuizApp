@@ -54,35 +54,42 @@ authRouter.post('/signupadmin', async(req, res) => {
 });
 
 authRouter.post("/login", async (req, res) => {
-    try {
-        const {email,password}=req.body;
+  try {
+    const { email, password } = req.body;
 
-        let user=await User.findOne({email});
-        let isAdmin=false;
-        if(!user){
-            user=await Admin.findOne({email});
-            isAdmin=true;
-        }
-        if(!user){
-            return res.json({ message: 'User not found!' });
-        }
-        const isPasswordMatch=await bcrypt.compare(password,user.password);
-        if(isPasswordMatch){
-            
-            const token=await jwt.sign({_id:user._id,role:isAdmin ? 'admin':'user'},"QuizApp",{
-                expiresIn:"1d"
-            });
-            res.cookie("token",token)
-            res.json({message: 'Login successful!',user});
-        }
-        else{
-            return res.send("Incorrect password")
-        }
-    }catch(error){
-        res.json({ error: "Internal server error", message: error.message });
-
+    let user = await User.findOne({ email });
+    let isAdmin = false;
+    if (!user) {
+      user = await Admin.findOne({ email });
+      isAdmin = true;
     }
-})
+    if (!user) {
+      return res.json({ message: "User not found!" });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (isPasswordMatch) {
+      const token = await jwt.sign(
+        { _id: user._id, role: isAdmin ? "admin" : "user" },
+        "QuizApp",
+        { expiresIn: "1d" }
+      );
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
+
+      res.json({ message: "Login successful!", user });
+    } else {
+      return res.send("Incorrect password");
+    }
+  } catch (error) {
+    res.json({ error: "Internal server error", message: error.message });
+  }
+});
+
 
 authRouter.post("/logout",async(req,res)=>{
     res.cookie("token",null,{
